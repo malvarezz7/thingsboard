@@ -1,0 +1,16 @@
+FROM node:20-bullseye
+
+WORKDIR /build
+
+# Activamos corepack para usar Yarn oficial
+RUN corepack enable
+
+COPY ui-ngx ./ui-ngx
+
+WORKDIR /build/ui-ngx
+
+# Instalación reproducible usando yarn.lock
+RUN yarn install --immutable
+
+# Build de producción
+RUN yarn build
